@@ -5,6 +5,14 @@ import {
   deleteContact,
 } from 'redux/contact/contactOp';
 
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
 export const contactsSlise = createSlice({
   name: 'contacts',
   initialState: {
@@ -15,16 +23,24 @@ export const contactsSlise = createSlice({
   reducers: {},
   extraReducers: builder =>
     builder
+      .addCase(fatchContact.pending, handlePending)
+      .addCase(fatchContact.rejected, handleRejected)
+      .addCase(fatchContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.items = action.payload;
+      })
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.rejected, handleRejected)
       .addCase(addContact.fulfilled, (state, action) => {
         state.items.push(action.payload);
       })
+      .addCase(deleteContact.pending, handlePending)
+      .addCase(deleteContact.rejected, handleRejected)
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.items = state.items.filter(({ id }) => {
           return id !== action.meta.arg;
         });
-      })
-      .addCase(fatchContact.fulfilled, (state, action) => {
-        state.items = action.payload;
       }),
 });
 export const { increment, decrement } = contactsSlise.actions;
