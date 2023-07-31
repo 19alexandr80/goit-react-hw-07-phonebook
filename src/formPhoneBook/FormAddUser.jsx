@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fatchContact, addContact } from 'redux/contact/contactOp';
+import { addContact } from 'redux/contact/contactOp';
 
 export function FormAddUser() {
   const dispatch = useDispatch();
