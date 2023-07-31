@@ -13,20 +13,19 @@ export const contactsSlise = createSlice({
     error: null,
   },
   reducers: {},
-  extraReducers: {
-    [addContact.fulfilled]: (state, action) => {
-      state.items.push(action.payload);
-    },
-    [deleteContact.fulfilled]: (state, action) => {
-      state.items = state.items.filter(({ id }) => {
-        console.log(id);
-        return id !== action.meta.arg;
-      });
-    },
-    [fatchContact.fulfilled]: (state, action) => {
-      state.items = action.payload;
-    },
-  },
+  extraReducers: builder =>
+    builder
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.items = state.items.filter(({ id }) => {
+          return id !== action.meta.arg;
+        });
+      })
+      .addCase(fatchContact.fulfilled, (state, action) => {
+        state.items = action.payload;
+      }),
 });
 export const { increment, decrement } = contactsSlise.actions;
 

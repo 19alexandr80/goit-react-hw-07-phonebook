@@ -18,8 +18,6 @@ export function FormAddUser() {
       alert(add.name + ' is already in contacts');
       return;
     }
-    // add.id = nanoid();
-    // dispatch(increment(add));
     dispatch(addContact(add));
   };
   const formSubmit = e => {
