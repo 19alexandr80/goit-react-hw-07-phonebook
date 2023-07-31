@@ -8,7 +8,6 @@ export class PhoneBook {
   async getPhoneBook() {
     try {
       const response = await axios.get(`${this.requestAddress}`);
-      console.log(response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -17,7 +16,6 @@ export class PhoneBook {
   async addUserPhoneBook(request) {
     try {
       const response = await axios.post(`${this.requestAddress}`, request);
-      console.log(response);
       return response;
     } catch (error) {
       console.error('errrrrror', error);
@@ -25,9 +23,8 @@ export class PhoneBook {
   }
   async deleteUserPhoneBook(id) {
     try {
-      const response = await axios.delete(`${this.requestAddress}/${id}`);
-      console.log(response);
-      return response;
+      await axios.delete(`${this.requestAddress}/${id}`);
+      return;
     } catch (error) {
       console.error('error-deleteRequest', error);
     }
